@@ -10,8 +10,13 @@ knitr::opts_chunk$set(echo = TRUE)
 #### Exercises
 
 1.  Explain coercion rules. Create an example that demonstrates the fixed order of the coercion rules.
-
+We are working with four data types, Logical, Integer, Double, and Character. The data can be "coerced" with the as. function to be a certain type. When multiple data types are combined into a single object, they will take on the type of the lowest type in the order presented above, with Character as the lowest type. In the example below, two objects are created, one as Characters and the other as Doubles. When combined into object "Combo" they are presented with quotation marks which shows they are all characters, even though the object Doubles" was coerced into the type of double. 
 ```{r}
+Characters <- c("A", "B", "c")
+Doubles <- c(1,2,3)
+as.double(Doubles)
+Combo <- c(Characters,Doubles)
+Combo
 
 ```
 
@@ -19,39 +24,62 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 as.integer(c("one", "two", "three"))
+# The quotation marks make the values as characters types, and so they cannot be numerical. 
 ```
 
 3.  Create a vector of a sequence of integers starting at 2, ending at 100, and increasing by 2. Assign the vector to an object called `evens`. Coerce the vector to be of type `integer`. Confirm that the vector is of type `integer`.
 
 ```{r}
+evens <- seq(from = 2,to = 100, by = 2)
+evens <- as.integer(evens)
+evens
+is.integer(evens)
+
 
 ```
-
 4.  Create a vector of random numbers with a length equal to your vector in exercise 3. Use a seed with a value of 730 before creating your vector. Assign the vector to an object called `randoms`. Confirm the type of the vector.
 
 ```{r}
-
+set.seed(730)
+randoms <- runif(50,min=0, max = 5)
+randoms
+typeof(randoms)
 ```
 
 5.  Create a vector demonstrating which values in exercise 3 are greater than `0.75`. Assign the vector to an object called `logicals`. Confirm the type of the vector.
 
 ```{r}
-
+Logicals <- c(evens)>'0.75'
+Logicals
+typeof(Logicals)
 ```
 
 6.  Create a data frame including the three vectors created in exercises 3 through 5. Assign it to an object following best practices for naming.
 
 ```{r}
+Combo.DF <-
+  data.frame(Integers = evens,
+             Random = randoms,
+             Logicals = Logicals)
+Combo.DF
 
 ```
 
 7.  Create a new object which is the sum of `evens` and `randoms` all divided by 3. Demonstrate how to calculate basic summary statistics for this new object (mean, median, minimum, maximum, standard deviation, variance).
 
 ```{r}
-
+Third <- c(evens/3 + randoms/3)
+Third
+mean(Third)
+median(Third)
+min(Third)
+max(Third)
+sd(Third)
+var(Third)
 ```
 
 8.  We discussed the idea that R is a "vectorized" language. Explain this concept. Why is it important?
+# It means that operations can be applied to entire arrays instead of just individual elements. This gives flexibility for graphing options. 
 
 9.  Run the `sessionInfo` function in a chunk.
 
